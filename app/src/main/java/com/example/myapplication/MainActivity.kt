@@ -4,9 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -42,7 +40,6 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        startThreadForAllElementsCicleColorChanging()
         startThreadForFiveTextViewsAdding()
 
 //         Коментарии остальись от неправильно понятого задания, а удалять жалко
@@ -86,14 +83,17 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    val countingTextViews = mutableListOf<TextView>()
     private fun startThreadForFiveTextViewsAdding() {
         val linearLayout = findViewById<LinearLayout>(R.id.mainVerticalLinearLayout)
+        val secondCount = 5
         val threadTextViewsAdding = Thread {
-            repeat(5) { index ->
+            repeat(secondCount) { index ->
                 val textView = TextView(this@MainActivity).apply {
-                    setText("TextView + ${index + 1}")
+                    setText("До начала психодела ${secondCount - index}")
                     textSize = 24.0F
                 }
+                countingTextViews.add(textView)
 
                 runOnUiThread {
                     linearLayout.run {
@@ -104,6 +104,7 @@ class MainActivity : AppCompatActivity() {
 
                 Thread.sleep(1000L)
             }
+            startThreadForAllElementsCicleColorChanging()
         }
         threadTextViewsAdding.start()
     }
@@ -111,7 +112,6 @@ class MainActivity : AppCompatActivity() {
     @OptIn(ExperimentalStdlibApi::class)
     private fun startThreadForAllElementsCicleColorChanging() {
         val threadCicleColorChanging = Thread {
-            Thread.sleep(5000)
             val layouts = listOf(
                 findViewById<ConstraintLayout>(R.id.main),
                 findViewById<LinearLayout>(R.id.mainVerticalLinearLayout)
@@ -125,7 +125,9 @@ class MainActivity : AppCompatActivity() {
                 findViewById<TextView>(R.id.answererTextView),
                 findViewById<Chip>(R.id.chip1),
                 findViewById<Chip>(R.id.chip2),
-                findViewById<Chip>(R.id.chip3)
+                findViewById<Chip>(R.id.chip3),
+                *(countingTextViews.toTypedArray()),
+
             )
             val colors = listOf(
                 0xFFFF0000.toInt(), // Красный
