@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:drawable/ic_menu_mapmode"
     tools:context=".MainActivity">
 
     <TextView
@@ -55,13 +56,69 @@
         android:id="@+id/clickCountButton"
         android:layout_width="144dp"
         android:layout_height="69dp"
-        android:text="@string/buttonText_clickCount"
+        android:text='Добавить "!"'
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.131"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.605" />
+        app:layout_constraintVertical_bias="0.605"
+        android:onClick="HelloWorldChangeOnClick"/>
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="144dp"
+        android:layout_height="69dp"
+        app:layout_constraintBottom_toBottomOf="@+id/clickCountButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/clickCountButton"
+        app:layout_constraintTop_toTopOf="@+id/clickCountButton"
+        app:srcCompat="@android:drawable/btn_star_big_off"
+        android:onClick="HelloWorldChangeOnClick" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
+        android:layout_width="328dp"
+        android:layout_height="56dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/textViewCreatedBy"
+        app:layout_constraintEnd_toEndOf="@+id/imageButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/clickCountButton"
+        app:layout_constraintTop_toBottomOf="@+id/clickCountButton"
+        app:layout_constraintVertical_bias="0.100000024">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="chips_onClick"
+            android:text="Я крутой" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="chips_onClick"
+            android:text="Ты крутой" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="chips_onClick"
+            android:text="Мы крутые" />
+    </com.google.android.material.chip.ChipGroup>
+
+    <TextView
+        android:id="@+id/answererTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/textViewCreatedBy"
+        app:layout_constraintEnd_toEndOf="@+id/chipGroup"
+        app:layout_constraintStart_toStartOf="@+id/chipGroup"
+        app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

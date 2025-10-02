@@ -1,15 +1,19 @@
 package com.example.myapplication
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import kotlin.random.Random
+import com.google.android.material.chip.Chip
 
 /**
  * Практическая работа №13.
@@ -22,9 +26,12 @@ import kotlin.random.Random
  * 6. Добавить картинку на задний фон;
  * 7. Сделать опрос с несколькими вариантами ответа. Выводить правильно ли выбраны ответы или нет;
  * 8. Сделать программу, которая эмулирует работу этой gif.
- *
  */
+
+
 class MainActivity : AppCompatActivity() {
+
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //enableEdgeToEdge()
@@ -37,19 +44,62 @@ class MainActivity : AppCompatActivity() {
 
         startThreadForAllElementsCicleColorChanging()
         startThreadForFiveTextViewsAdding()
+
+//         Коментарии остальись от неправильно понятого задания, а удалять жалко
+
+//        var clickCount = 0
+//        findViewById<Button>(R.id.clickCountButton)
+//            .setOnClickListener {
+//            (it as Button).text = "${getString(R.string.buttonText_clickCount)} ${++clickCount}"
+//        }
+//
+//        var btn_star_big_state = false
+//        findViewById<ImageButton>(R.id.imageButton)
+//            .setOnClickListener {
+//                val btn = it as ImageButton
+//                btn_star_big_state = !btn_star_big_state
+//                btn.setImageResource(
+//                    if (btn_star_big_state)
+//                        android.R.drawable.btn_star_big_on
+//                    else
+//                        android.R.drawable.btn_star_big_off
+//                )
+//            }
+    }
+
+    fun HelloWorldChangeOnClick(v: View): Unit {
+        val textViewHelloWorld = findViewById<TextView>(R.id.textViewHelloWorld)
+        textViewHelloWorld.text = "${textViewHelloWorld.text}!"
+    }
+
+    fun chips_onClick(v: View): Unit {
+        val chip = v as Chip
+        val answererTextView = findViewById<TextView>(R.id.answererTextView)
+        if (chip == findViewById<Chip>(R.id.chip1))
+        {
+            answererTextView.text = "Верно, я крутой"
+        }
+        else
+        {
+            answererTextView.text = "Неверно, Я крутой, а не ${chip.text}"
+        }
+
     }
 
     private fun startThreadForFiveTextViewsAdding() {
         val linearLayout = findViewById<LinearLayout>(R.id.mainVerticalLinearLayout)
         val threadTextViewsAdding = Thread {
             repeat(5) { index ->
+                val textView = TextView(this@MainActivity).apply {
+                    setText("TextView + ${index + 1}")
+                    textSize = 24.0F
+                }
+
                 runOnUiThread {
                     linearLayout.run {
-                        addView(TextView(this@MainActivity).apply {
-                            setText("TextView + ${index + 1}")
-                            textSize = 24.0F
-                        })
+                        addView(textView)
                     }
+                    Log.d("Add TextView", "add TextView with ${index + 1} index")
                 }
 
                 Thread.sleep(1000L)
@@ -61,6 +111,7 @@ class MainActivity : AppCompatActivity() {
     @OptIn(ExperimentalStdlibApi::class)
     private fun startThreadForAllElementsCicleColorChanging() {
         val threadCicleColorChanging = Thread {
+            Thread.sleep(5000)
             val layouts = listOf(
                 findViewById<ConstraintLayout>(R.id.main),
                 findViewById<LinearLayout>(R.id.mainVerticalLinearLayout)
@@ -71,8 +122,11 @@ class MainActivity : AppCompatActivity() {
                 findViewById<Button>(R.id.clickCountButton),
                 findViewById<TextView>(R.id.textViewCreatedBy),
                 findViewById<TextView>(R.id.textViewDate),
+                findViewById<TextView>(R.id.answererTextView),
+                findViewById<Chip>(R.id.chip1),
+                findViewById<Chip>(R.id.chip2),
+                findViewById<Chip>(R.id.chip3)
             )
-
             val colors = listOf(
                 0xFFFF0000.toInt(), // Красный
                 0xFFFFA500.toInt(), // Оранжевый
