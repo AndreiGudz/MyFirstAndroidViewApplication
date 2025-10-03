@@ -44,11 +44,12 @@
 
     <LinearLayout
         android:id="@+id/mainVerticalLinearLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/clickCountButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewHelloWorld" />
 
@@ -56,14 +57,14 @@
         android:id="@+id/clickCountButton"
         android:layout_width="144dp"
         android:layout_height="69dp"
+        android:onClick="HelloWorldChangeOnClick"
         android:text='Добавить "!"'
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.131"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.605"
-        android:onClick="HelloWorldChangeOnClick"/>
+        app:layout_constraintVertical_bias="0.392" />
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -118,7 +119,51 @@
         app:layout_constraintBottom_toTopOf="@+id/textViewCreatedBy"
         app:layout_constraintEnd_toEndOf="@+id/chipGroup"
         app:layout_constraintStart_toStartOf="@+id/chipGroup"
-        app:layout_constraintTop_toBottomOf="@+id/chipGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/chipGroup"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/textViewCreatedBy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/answererTextView">
+
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="5dp"
+            android:text="Я старше 13 лет"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+        <Switch
+            android:id="@+id/switch2"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="5dp"
+            android:text="Я играю в Roblox"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+        <Switch
+            android:id="@+id/switch3"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="5dp"
+            android:text="Об меня не тушат окурки в школе"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.Switch
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -29,7 +30,17 @@ import com.google.android.material.chip.Chip
 
 class MainActivity : AppCompatActivity() {
 
-    @SuppressLint("SetTextI18n")
+    val switches: Array<Switch> by lazy {
+        arrayOf(
+            findViewById<Switch>(R.id.switch1),
+            findViewById<Switch>(R.id.switch2),
+            findViewById<Switch>(R.id.switch3),
+        )
+    }
+
+    val countingTextViews = mutableListOf<TextView>()
+
+    @SuppressLint("SetTextI18n", "UseSwitchCompatOrMaterialCode")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //enableEdgeToEdge()
@@ -40,7 +51,18 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        startThreadForFiveTextViewsAdding()
+        startThreadForСountdown()
+
+        switches.forEach {
+            it.setOnClickListener {
+                val switch = it as Switch
+                val index = switches.indexOf(switch)
+
+                if (switches.all({ it.isChecked } )) {
+                    switches[(index + 1) % 3].isChecked = false
+                }
+            }
+        }
 
 //         Коментарии остальись от неправильно понятого задания, а удалять жалко
 
@@ -83,8 +105,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    val countingTextViews = mutableListOf<TextView>()
-    private fun startThreadForFiveTextViewsAdding() {
+    private fun startThreadForСountdown() {
         val linearLayout = findViewById<LinearLayout>(R.id.mainVerticalLinearLayout)
         val secondCount = 5
         val threadTextViewsAdding = Thread {
@@ -127,7 +148,7 @@ class MainActivity : AppCompatActivity() {
                 findViewById<Chip>(R.id.chip2),
                 findViewById<Chip>(R.id.chip3),
                 *(countingTextViews.toTypedArray()),
-
+                *switches
             )
             val colors = listOf(
                 0xFFFF0000.toInt(), // Красный
