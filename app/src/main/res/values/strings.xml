@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">My Application</string>
-    <string name="center">
+    <string name="right_top">
         <u>
-            Center
+            right | top
         </u>
     </string>
 </resources>
