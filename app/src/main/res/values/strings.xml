@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="center">
+        <u>
+            Center
+        </u>
+    </string>
 </resources>
