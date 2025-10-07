@@ -1,16 +1,34 @@
 package com.example.myapplication
 
 import android.os.Bundle
-import android.util.Log
+import android.util.TypedValue
+import android.view.Display
+import android.view.View
 import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
+/**
+ * Тема: Layouts
+ * 1. Создать приложение, используя AbsoluteLayout. Продемонстрировать недостатки;
+ * 2. Создать приложение, используя FrameLayout;
+ * 3. Создать приложение, используя LinearLayout (вертикальное и горизонтальное расположение элементов);
+ * 4. Создать приложение, используя RelativeLayout;
+ * 5. Создать приложение, используя TableLayout. В приложении обязательно должна быть хотя бы одна объединенная по горизонтали ячейка,
+ *    (По вертикали нельзя объединять ячеёки, поэтому следующие задачи невозможны)
+ *    одна по вертикали, и одна объединенная и по строкам и по столбцам.
+ * 6. Создать приложение, при помощи ConstraintLayout;
+ * 7. Элемент не доступен -- Создать приложение, при помощи TabLayout;
+ * 8. Создать приложение, которое будет пролистываться вниз (в высоту будет больше, чем размер экрана)
+ * 9. Создать приложение с разными типами верстки.
+ */
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //enableEdgeToEdge()
+        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -18,58 +36,32 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        bottomTextViewsCicleColorChanging()
+        val metrics = resources.displayMetrics
+        val unitDP = TypedValue.COMPLEX_UNIT_DIP
+        val unitSP = TypedValue.COMPLEX_UNIT_SP
+        val size = TypedValue.applyDimension(unitDP, 100F, metrics)
 
-    }
-
-    @OptIn(ExperimentalStdlibApi::class)
-    private fun bottomTextViewsCicleColorChanging() {
-        val myThread = Thread {
-            val view1 = findViewById<TextView>(R.id.textViewCreatedBy)
-            val view2 = findViewById<TextView>(R.id.textViewDate)
-
-            val colors = listOf(
-                0xFF000000.toInt(), 0xFFFF0000.toInt(),
-                0xFF00FF00.toInt(), 0xFF0000FF.toInt()
-            )
-            while (true) {
-                val randomColor = colors.random()
-                Log.d(
-                    "Color Change",
-                    "Color changing on ${randomColor.toHexString(HexFormat.UpperCase)}"
-                )
-                runOnUiThread {
-                    view1.setTextColor(randomColor)
-                    view2.setTextColor(randomColor)
-                }
-                Thread.sleep(1000)
+        val mainLayout = findViewById<ConstraintLayout>(R.id.main)
+        val layoutConstraint = ConstraintLayout.LayoutParams(
+            size.toInt() ,
+            ConstraintLayout.LayoutParams.WRAP_CONTENT)
+            .apply {
+                startToStart = ConstraintLayout.LayoutParams.PARENT_ID
+                endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
+                topToTop = ConstraintLayout.LayoutParams.PARENT_ID
+                bottomToTop = R.id.textView
+                verticalBias = 1F
             }
+
+        val textView = TextView(this@MainActivity).apply {
+            id = View.generateViewId()
+            text = "My text"
+            setTextSize(unitSP, 24F)
+            setTextColor(0xFFFF0000.toInt())
+            setBackgroundColor(0xFF00FF00.toInt())
+            layoutParams = layoutConstraint
         }
-        myThread.start()
-    }
 
-    override fun onStart() {
-        super.onStart()
-        Log.d("lifecycle", "onStart")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("lifecycle", "onResume")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d("lifecycle", "onPause")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d("lifecycle", "onStop")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("lifecycle", "onDestroy")
+        mainLayout.addView(textView)
     }
 }

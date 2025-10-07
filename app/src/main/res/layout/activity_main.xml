@@ -8,50 +8,16 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
+        android:id="@+id/textView"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:text="Hello World! UwU"
-        app:layout_constraintBottom_toTopOf="@+id/textViewCreatedBy"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.08"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.08" />
-
-    <TextView
-        android:id="@+id/textViewCreatedBy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Created by Andrey Gudz"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.134"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.887" />
-
-    <TextView
-        android:id="@+id/textViewDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="date: 30.09.2025"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewCreatedBy"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textViewCreatedBy"
-        app:layout_constraintTop_toTopOf="@+id/textViewCreatedBy" />
-
-    <EditText
-        android:id="@+id/editTextTextEmailAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="E-mail"
-        android:ems="10"
-        android:inputType="textEmailAddress"
+        android:background="@color/black"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
